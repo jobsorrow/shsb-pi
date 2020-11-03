@@ -1,0 +1,125 @@
+wlan0     Scan completed :
+          Cell 01 - Address: D0:60:8C:EC:B1:D1
+                    ESSID:"true_home2G_1d1"
+                    Protocol:IEEE 802.11bgn
+                    Mode:Master
+                    Frequency:2.422 GHz (Channel 3)
+                    Encryption key:on
+                    Bit Rates:130 Mb/s
+                    Extra:wpa_ie=dd1a0050f20101000050f20202000050f2040050f20201000050f202
+                    IE: WPA Version 1
+                        Group Cipher : TKIP
+                        Pairwise Ciphers (2) : CCMP TKIP
+                        Authentication Suites (1) : PSK
+                    Extra:rsn_ie=30180100000fac020200000fac04000fac020100000fac020c00
+                    IE: IEEE 802.11i/WPA2 Version 1
+                        Group Cipher : TKIP
+                        Pairwise Ciphers (2) : CCMP TKIP
+                        Authentication Suites (1) : PSK
+                    IE: Unknown: DD6A0050F204104A0001101044000102103B0001031047001000000000000000000000000000000000102100035A5445102300035A54451024000631323334353610420004313233341054000800060050F2040001101100085A54452046363630100800020080103C000101
+                    Quality=100/100  Signal level=100/100  
+          Cell 02 - Address: 44:13:D0:F7:B8:13
+                    ESSID:"PALM 2.4G"
+                    Protocol:IEEE 802.11bgn
+                    Mode:Master
+                    Frequency:2.412 GHz (Channel 1)
+                    Encryption key:on
+                    Bit Rates:300 Mb/s
+                    Extra:rsn_ie=30140100000fac040100000fac040100000fac020000
+                    IE: IEEE 802.11i/WPA2 Version 1
+                        Group Cipher : CCMP
+                        Pairwise Ciphers (1) : CCMP
+                        Authentication Suites (1) : PSK
+                    IE: Unknown: DD310050F204104A000110104400010210470010BC329E001DD811B286014413D0F7B813103C0001011049000600372A000120
+                    Quality=0/100  Signal level=23/100  
+          Cell 03 - Address: C8:F6:C8:DD:78:3B
+                    ESSID:"Banlanlaa"
+                    Protocol:IEEE 802.11bgn
+                    Mode:Master
+                    Frequency:2.432 GHz (Channel 5)
+                    Encryption key:on
+                    Bit Rates:300 Mb/s
+                    Extra:wpa_ie=dd160050f20101000050f20401000050f20401000050f202
+                    IE: WPA Version 1
+                        Group Cipher : CCMP
+                        Pairwise Ciphers (1) : CCMP
+                        Authentication Suites (1) : PSK
+                    Extra:rsn_ie=30140100000fac040100000fac040100000fac020000
+                    IE: IEEE 802.11i/WPA2 Version 1
+                        Group Cipher : CCMP
+                        Pairwise Ciphers (1) : CCMP
+                        Authentication Suites (1) : PSK
+                    IE: Unknown: DD4E0050F204104A00011010440001011054000800060050F20400011011000753523132302D4110080002010010470010112233445566778899AAC8F6C8DD7835103C0001031049000600372A000120
+                    Quality=0/100  Signal level=42/100  
+          Cell 04 - Address: 58:70:C6:F2:62:C2
+                    ESSID:"YICarCam_f262c2"
+                    Protocol:IEEE 802.11bgn
+                    Mode:Master
+                    Frequency:2.437 GHz (Channel 6)
+                    Encryption key:on
+                    Bit Rates:108 Mb/s
+                    Extra:rsn_ie=30140100000fac040100000fac040100000fac020000
+                    IE: IEEE 802.11i/WPA2 Version 1
+                        Group Cipher : CCMP
+                        Pairwise Ciphers (1) : CCMP
+                        Authentication Suites (1) : PSK
+                    IE: Unknown: DD390050F204104A00011010440001011054000800060050F20400011011000B576972656C6573732041501008000201081049000600372A000120
+                    Quality=0/100  Signal level=43/100  
+          Cell 05 - Address: 78:53:0D:6E:81:40
+                    ESSID:"Rattanamongkol_2.4G"
+                    Protocol:IEEE 802.11bgn
+                    Mode:Master
+                    Frequency:2.427 GHz (Channel 4)
+                    Encryption key:on
+                    Bit Rates:144 Mb/s
+                    Extra:wpa_ie=dd1a0050f20101000050f20202000050f2020050f20401000050f202
+                    IE: WPA Version 1
+                        Group Cipher : TKIP
+                        Pairwise Ciphers (2) : TKIP CCMP
+                        Authentication Suites (1) : PSK
+                    Extra:rsn_ie=30180100000fac020200000fac02000fac040100000fac020000
+                    IE: IEEE 802.11i/WPA2 Version 1
+                        Group Cipher : TKIP
+                        Pairwise Ciphers (2) : TKIP CCMP
+                        Authentication Suites (1) : PSK
+                    IE: Unknown: DD270050F204104A000110104400010210470010BC329E001DD811B2860178530D6E8140103C000101
+                    Quality=0/100  Signal level=23/100  
+          Cell 06 - Address: E0:19:54:93:C3:F0
+                    ESSID:"Panataporn_2.4G"
+                    Protocol:IEEE 802.11bgn
+                    Mode:Master
+                    Frequency:2.462 GHz (Channel 11)
+                    Encryption key:on
+                    Bit Rates:144 Mb/s
+                    Extra:wpa_ie=dd1a0050f20101000050f20202000050f2020050f20401000050f202
+                    IE: WPA Version 1
+                        Group Cipher : TKIP
+                        Pairwise Ciphers (2) : TKIP CCMP
+                        Authentication Suites (1) : PSK
+                    Extra:rsn_ie=30180100000fac020200000fac02000fac040100000fac020000
+                    IE: IEEE 802.11i/WPA2 Version 1
+                        Group Cipher : TKIP
+                        Pairwise Ciphers (2) : TKIP CCMP
+                        Authentication Suites (1) : PSK
+                    IE: Unknown: DD7D0050F204104A0001101044000102103B00010310470010BC329E001DD811B28601E0195493C3F0102100035A54451023000C5A58484E20476174655761791024000456312E301042000831323334353637381054000800060050F2040001101100065A5445204150100800020380103C0001011049000600372A000120
+                    Quality=0/100  Signal level=56/100  
+          Cell 07 - Address: D4:58:00:13:46:3B
+                    ESSID:"Chao"
+                    Protocol:IEEE 802.11bgn
+                    Mode:Master
+                    Frequency:2.442 GHz (Channel 7)
+                    Encryption key:on
+                    Bit Rates:300 Mb/s
+                    Extra:wpa_ie=dd160050f20101000050f20401000050f20401000050f202
+                    IE: WPA Version 1
+                        Group Cipher : CCMP
+                        Pairwise Ciphers (1) : CCMP
+                        Authentication Suites (1) : PSK
+                    Extra:rsn_ie=30140100000fac040100000fac040100000fac020000
+                    IE: IEEE 802.11i/WPA2 Version 1
+                        Group Cipher : CCMP
+                        Pairwise Ciphers (1) : CCMP
+                        Authentication Suites (1) : PSK
+                    IE: Unknown: DD4E0050F204104A00011010440001011054000800060050F20400011011000753523132302D4110080002010010470010112233445566778899AAD45800134635103C0001031049000600372A000120
+                    Quality=0/100  Signal level=42/100  
+

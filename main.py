@@ -7,7 +7,7 @@ from gpiozero import LED
 project_id = 'fir-playaround-94ba4'
 
 # Use the application default credentials
-cred = credentials.Certificate('/home/pi/firebase-playaround-365c54f5905a.json')
+cred = credentials.Certificate("/home/pi/shsb-pi/fir-playaround-94ba4-firebase-adminsdk-fjx0x-2095afb103.json")
 firebase_admin.initialize_app(cred, {
   'projectId': project_id,
 })
