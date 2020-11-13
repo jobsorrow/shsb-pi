@@ -17,8 +17,12 @@ import Adafruit_DHT
 
 from PIL import Image
 from PIL import ImageDraw
-from PIL import ImageFont
+from PIL import ImageFont, Image
 
+Droplet = Image.open('/home/pi/shsb-pi/icon/droplet.png')
+Fan = Image.open('/home/pi/shsb-pi/icon/fan.png')
+Snow = Image.open('/home/pi/shsb-pi/icon/snow.png')
+Swing = Image.open('/home/pi/shsb-pi/icon/swing.png')
 
 log = 1
 
@@ -41,7 +45,7 @@ disp.begin()
 bulb = dict()
 
 bz = Buzzer(14)
-ldr = LightSensor(18)
+ldr = LightSensor(18,threshold = 0.2)
 
 def init():
     for dev in devs.get():
@@ -79,13 +83,35 @@ def set_pwm(pin,val):
     if val <= 100:    
         bulb[pin].value = val/100
 
-def set_temp(id,val,stat):
-    if log:
-        print('*  gpio  * set temp on pin: ',id,' of val: ',val)
+def set_temp(air):
+    on = air['on']
+    temp = air['temp']
+    mode = air['mode']
+    speed = air['fanSpeed']
+    swing = air['swing']
+    actual_temp = sensors.document('humidSensor').get().to_dict()['temp']
+    dev_id = air['deviceId']
     draw.rectangle((0,0,width,height), outline=0, fill=0)
-    draw.text((0,0),'devId: {}'.format(id), font=font, fill=255)
-    draw.text((0,fontsize+2),'temp: {}'.format(val), font=font, fill=255)
-    draw.text((0,2*fontsize+4),'on: {}'.format(stat),font=font, fill=255)
+    if log:
+        print('*  gpio  * set temp on pin: ',dev_id,' of temp: ',temp)
+    if on:
+        if speed >0:
+            image.paste(Fan,(0,20))
+        if speed>1:
+            image.paste(Fan,(20,20))
+        if speed>2:
+            image.paste(Fan,(40,20))
+        if mode=='fan':
+            image.paste(Fan,(100,20))
+        elif mode=='cool':
+            image.paste(Snow,(100,20))
+        else:
+            image.paste(Droplet,(100,20))
+        if swing:
+            image.paste(Swing,(70,20))
+        draw.text((0,0),'ID: {}'.format(dev_id),fill=255)
+        draw.text((0,50),'TEMP:{}C'.format(int(temp)),fill=255)
+        draw.text((60,50),'REAL:{}C'.format(int(actual_temp)),fill=255)
     disp.image(image)
     disp.display()
     bz.blink(n=1,on_time=0.05)
@@ -106,14 +132,16 @@ def pollHumiditySensor():
         if sampleRate['humidity']:
             starttime = time.time()
             humidity,temp = Adafruit_DHT.read_retry(Adafruit_DHT.DHT22,4)
-            sensors.document('humidSensor').update({'humidity':humidity,'temp':temp})
+            if humidity != None and temp != None:
+                sensors.document('humidSensor').update({'humidity':humidity,'temp':temp})
             print('*  gpio  * sampled for humid = {} and temp = {}'.format(humidity,temp))
             try:
                 if (1/sampleRate['humidity']-(time.time()-starttime)) > 0:
                     time.sleep(1/sampleRate['humidity']-(time.time()-starttime))
             except ZeroDivisionError:
-                pass
-
+                time.sleep(0.1)
+        else:
+            time.sleep(0.1)
 def pollLightSensor():
     while (1):
         if sampleRate['light']:
@@ -124,7 +152,9 @@ def pollLightSensor():
                 if (1/sampleRate['light']-(time.time()-starttime)) > 0:
                     time.sleep(1/sampleRate['light']-(time.time()-starttime))
             except ZeroDivisionError:
-                pass
+                time.sleep(0.1)
+        else:
+            time.sleep(0.1)
 fontsize = 20
 font = ImageFont.truetype('/home/pi/shsb-pi/arial.ttf',fontsize)
 
@@ -139,31 +169,27 @@ callback_done = threading.Event()
 
 # Create a callback on_snapshot function to capture changes
 def on_snapshot_callback(doc_snapshot, changes, read_time):
-    try :
-        for change in changes:
-            if log:
-                print(f'*firebase* change in devs : {change.document.id}')
+    for change in changes:
+        if log:
+            print(f'*firebase* change in devs : {change.document.id}')
 
-            #room,devtype,pin = change.document.id.strip().split('$')
-
-            dev_dict = change.document.to_dict()
-            if 'deviceType' in dev_dict:    
-                if dev_dict['deviceType']=='light':
-                    if dev_dict['on']:
-                        on_light(dev_dict['deviceControlAt'])
-                        set_pwm(dev_dict['deviceControlAt'],dev_dict['brightness'])
-                    else :
-                        off_light(dev_dict['deviceControlAt'])
-                elif dev_dict['deviceType']=='air':
-                    if dev_dict['on']:
-                        on_air(dev_dict['deviceId'])
-                    else :
-                        off_air(dev_dict['deviceId'])
-                    set_temp(dev_dict['deviceId'],dev_dict['temp'],dev_dict['on'])
+        #room,devtype,pin = change.document.id.strip().split('$')
+        dev_dict = change.document.to_dict()
+        if 'deviceType' in dev_dict:    
+            if dev_dict['deviceType']=='light':
+                if dev_dict['on']:
+                    on_light(dev_dict['deviceControlAt'])
+                    set_pwm(dev_dict['deviceControlAt'],dev_dict['brightness'])
+                else :
+                    off_light(dev_dict['deviceControlAt'])
+            elif dev_dict['deviceType']=='air':
+                if dev_dict['on']:
+                    on_air(change.document.id)
+                else :
+                    off_air(change.document.id)
+                set_temp(devs.document(change.document.id).get().to_dict())
                 
-        callback_done.set()
-    except Exception as e:
-        print('*  Errr  *',e)
+    callback_done.set()
 
 def on_snapshot_sensors_callback(doc_snapshot,changes,read_time):
     for change in changes:
@@ -188,10 +214,10 @@ devs_watch = devs.on_snapshot(on_snapshot_callback)
 sensors_watch = sensors.on_snapshot(on_snapshot_sensors_callback)
 
 
-humiditySensorThread = threading.Thread(target=pollHumiditySensor)
+humiditySensorThread = threading.Thread(target=pollHumiditySensor,daemon=True)
 humiditySensorThread.start()
 
-lightSensorThread = threading.Thread(target = pollLightSensor)
+lightSensorThread = threading.Thread(target = pollLightSensor,daemon=True)
 lightSensorThread.start()
 
 #code.interact(local=locals())
